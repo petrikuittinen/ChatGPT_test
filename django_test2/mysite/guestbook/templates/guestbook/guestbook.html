@@ -35,7 +35,7 @@
       {% for post in latest_posts %}
         <li>
           <strong>{{ post.author }}</strong> - {{ post.creation_date|date:"F d, Y H:i" }}<br>
-          {{ post.message }}
+          {{ post.message|linebreaks }}
         </li>
       {% empty %}
         <li>No messages yet.</li>
