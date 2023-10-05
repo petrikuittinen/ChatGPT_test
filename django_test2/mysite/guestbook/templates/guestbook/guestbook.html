@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guestbook</title>
+  <style>
+    /* Add your styles here */
+    body {
+      background-color: #1c1c1c;
+      color: #fff;
+      font-family: Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Guestbook</h1>
+  </header>
+  <main>
+    <!-- Form to add new guestbook posts -->
+    <form method="POST" action="{% url 'guestbook:add_guestbook_post' %}">
+      {% csrf_token %}
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author" required>
+      <br>
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+      <br>
+      <button type="submit">Add Post</button>
+    </form>
+    <!-- List of latest guestbook messages -->
+    <h2>Latest Messages</h2>
+    <ul>
+      {% for post in latest_posts %}
+        <li>
+          <strong>{{ post.author }}</strong> - {{ post.creation_date|date:"F d, Y H:i" }}<br>
+          {{ post.message }}
+        </li>
+      {% empty %}
+        <li>No messages yet.</li>
+      {% endfor %}
+    </ul>
+  </main>
+</body>
+</html>
+
